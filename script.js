@@ -15,12 +15,12 @@ const DECKS_CONFIG = [
   {
     name: "Awal Cerita",
     cards: [
-      { img: "", title: "Pertemuan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Obrolan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Jadian", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Foto Bareng Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Kencan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Pesan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/peti-tertutup.png", title: "Pertemuan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/peti-tertutup.png", title: "Obrolan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/peti-tertutup.png", title: "Jadian", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/peti-tertutup.png", title: "Foto Bareng Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/peti-tertutup.png", title: "Kencan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/peti-tertutup.png", title: "Pesan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
     ]
   },
   {
