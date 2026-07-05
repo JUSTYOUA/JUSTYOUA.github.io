@@ -1,0 +1,416 @@
+/* ======================================================================
+   AKADEMI BULAN SABIT — STYLE.CSS
+   File ini berisi SEMUA tampilan visual website: warna, font, layout,
+   animasi, posisi elemen dekorasi (bintang, awan, pesawat, roket, dsb),
+   serta styling untuk modal login, kartu Moments, dan peti Gift.
+   ====================================================================== */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%; height: 100%; background: #040207; font-family: 'VT323', monospace;
+  scroll-behavior: smooth;
+  overflow: hidden; /* Mengunci scroll di awal, dibuka lagi lewat JS setelah login */
+}
+
+/* ============ LONG STORY BACKGROUND: LANGIT MALAM -> PEDESAAN ============ */
+/* Gradient panjang yang membentang dari langit malam gelap di atas
+   sampai suasana hangat pedesaan di bawah, mengikuti scroll halaman. */
+#main-wrapper {
+  position: relative; width: 100%; min-height: 420vh;
+  background: linear-gradient(180deg,
+    #0a0618 0%,      /* langit malam pekat */
+    #130b24 10%,
+    #1c1130 22%,
+    #241537 34%,     /* mulai senja menuju subuh */
+    #2c1a3f 46%,
+    #3a2147 58%,     /* gradasi ungu kemerahan */
+    #4a2a44 68%,
+    #5c3a3c 76%,     /* mulai kehangatan pedesaan */
+    #6b4a37 84%,
+    #3a2a22 92%,     /* siluet pegunungan/pedesaan */
+    #1a120f 100%
+  );
+  overflow: hidden; opacity: 1;
+}
+#main-wrapper::after {
+  content: ''; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: radial-gradient(circle at 50% 8%, transparent 40%, rgba(0,0,0,0.55) 100%);
+}
+
+/* ============ HERO STAGE & STARS ============ */
+/* Panggung utama di layar pertama: judul, nama, dan pesan selamat. */
+#hero { position: relative; width: 100%; height: 100vh; overflow: hidden; cursor: crosshair; display: flex; flex-direction: column; align-items: center; }
+#stars { position: absolute; inset: 0; z-index: 1; pointer-events: none; height: 360vh; }
+.star { position: absolute; width: 2px; height: 2px; background: #f0e6d2; animation: twinkle 2.4s ease-in-out infinite; --star-op: 1; }
+.star.big { width: 3px; height: 3px; box-shadow: 0 0 4px 1px rgba(240,230,210,0.6); }
+@keyframes twinkle { 0%, 100% { opacity: calc(var(--star-op) * 0.2); } 50% { opacity: var(--star-op); } }
+
+/* ============ KONSTELASI ============ */
+/* Pola rasi bintang dekoratif yang tersebar di sepanjang langit. */
+.constellation { position: absolute; z-index: 1; pointer-events: none; opacity: 0.55; }
+.constellation svg { width: 100%; height: 100%; }
+.constellation circle { fill: #f0e6d2; filter: drop-shadow(0 0 3px rgba(240,230,210,0.8)); }
+.constellation line { stroke: rgba(240,230,210,0.35); stroke-width: 1; }
+
+/* ============ AWAN ============ */
+.cloud { position: absolute; z-index: 2; pointer-events: none; opacity: 0.18; filter: blur(1px); }
+.cloud svg { width: 100%; height: 100%; }
+.cloud path { fill: #cdbfe0; }
+@keyframes driftCloud {
+  0% { transform: translateX(-5%); }
+  100% { transform: translateX(5%); }
+}
+
+/* ============ PESAWAT ============ */
+.plane { position: absolute; z-index: 2; pointer-events: none; opacity: 0.92; }
+.plane svg { width: 100%; height: 100%; filter: drop-shadow(0 0 4px rgba(212,175,55,0.4)); shape-rendering: crispEdges; }
+.plane-trail { position: absolute; height: 1px; background: linear-gradient(90deg, transparent, rgba(240,230,210,0.5), transparent); z-index: 2; pointer-events: none; }
+
+/* ============ ROKET ============ */
+.rocket { position: absolute; z-index: 2; pointer-events: none; opacity: 0.95; }
+.rocket-inner { width: 100%; height: 100%; transform: rotate(-45deg); transform-origin: center; }
+.rocket-inner svg { width: 100%; height: 100%; display: block; shape-rendering: crispEdges; filter: drop-shadow(0 0 6px rgba(255,150,80,0.5)); }
+.rocket-flame { position: absolute; border-radius: 50%; pointer-events: none; }
+
+.main-moon { position: absolute; top: 13%; left: 50%; transform: translateX(-50%); z-index: 1; pointer-events: none; filter: drop-shadow(0 0 25px rgba(255,250,230,0.9)) drop-shadow(0 0 55px rgba(255,240,200,0.6)); opacity: 1; }
+
+/* ============ FIREWORKS (background loop, halaman utama) ============ */
+#fireworks-layer { position: absolute; inset: 0; z-index: 2; pointer-events: none; height: 100vh; }
+#click-fireworks-layer { position: fixed; inset: 0; z-index: 9000; pointer-events: none; }
+.fw-pixel { position: absolute; width: 5px; height: 5px; }
+.fw-trail { position: absolute; width: 3px; height: 3px; }
+
+/* ============ NAVIGATION ============ */
+nav { position: absolute; top: 0; left: 0; width: 100%; z-index: 10; display: flex; align-items: center; justify-content: center; padding: 22px 16px; background: linear-gradient(180deg, rgba(7,5,13,0.8) 0%, rgba(7,5,13,0) 100%); opacity: 0; transition: opacity 1s ease; }
+nav.show { opacity: 1; }
+.nav-list { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; justify-content: center; }
+.nav-list li a { display: inline-block; font-family: 'Pixelify Sans', monospace; font-weight: 700; font-size: 14px; letter-spacing: 1.5px; color: #c9b8e0; text-decoration: none; padding: 6px 2px; background: none; border: none; position: relative; transition: color 0.25s ease, text-shadow 0.25s ease; }
+.nav-list li a::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 100%; height: 2px; background: #d4af37; transform: scaleX(0); transform-origin: center; transition: transform 0.3s ease; }
+.nav-list li a:hover { color: #f0e6d2; text-shadow: 0 0 8px rgba(212,175,55,0.5); }
+.nav-list li a:hover::after { transform: scaleX(0.6); }
+.nav-list li a:active, .nav-list li a.nav-active { color: #d4af37; text-shadow: 0 0 10px rgba(212,175,55,0.7); }
+.nav-list li a:active::after, .nav-list li a.nav-active::after { transform: scaleX(1); background: #d4af37; }
+
+/* ============ HERO CONTENT ============ */
+#hero-content { position: relative; z-index: 5; text-align: center; padding: 0 20px; max-width: 90%; margin-top: 28vh; pointer-events: none; opacity: 0; transition: opacity 1s ease; }
+#hero-content.show { opacity: 1; }
+.eyebrow-label { font-family: 'Pixelify Sans', monospace; font-weight: 700; font-size: 13px; letter-spacing: 2px; color: #8b6fa8; margin-bottom: 18px; text-shadow: 2px 2px 0 #0d0a14; animation: fade-in-up 1s ease 0.1s both; }
+.hero-title { font-family: 'Pixelify Sans', monospace; font-weight: 700; color: #f0e6d2; font-size: clamp(28px, 7.5vw, 64px); line-height: 1.3; text-shadow: 3px 3px 0 #2d1b3d, 6px 6px 0 rgba(0,0,0,0.4); min-height: 2.6em; }
+.hero-title .accent { color: #d4af37; }
+#personalName { font-family: 'Pixelify Sans', monospace; font-weight: 700; font-size: clamp(24px, 5vw, 38px); color: #ffd9e8; margin-top: 16px; text-shadow: 2px 2px 0 #2d1b3d, 0 0 18px rgba(255,160,200,0.4); min-height: 1.2em; }
+
+.typing-cursor { color: #d4af37; font-family: monospace; margin-left: 4px; animation: blink 1s step-start infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+#personalMessage, #hero-div { opacity: 0; transform: translateY(20px); transition: opacity 1s ease, transform 1s ease; }
+#personalMessage { font-family: 'VT323', monospace; font-size: clamp(16px, 2.4vw, 22px); color: #d8c9e8; margin-top: 18px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.4; }
+.hero-divider { width: 120px; height: 3px; margin: 22px auto 0; background: linear-gradient(90deg, transparent, #d4af37, transparent); }
+
+.scroll-hint { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 5; font-family: 'Pixelify Sans', monospace; font-size: 12px; color: #8b6fa8; letter-spacing: 2px; opacity: 0; transition: opacity 1s ease; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.scroll-hint .arrow { animation: bounceArrow 1.6s ease-in-out infinite; font-size: 16px; color: #d4af37; }
+@keyframes bounceArrow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+/* ============ CONTENT SECTIONS (Words / Moments / Gift) ============ */
+.story-section { position: relative; z-index: 5; width: 100%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 24px; text-align: center; }
+.story-section .section-label { font-family: 'Pixelify Sans', monospace; font-weight: 700; font-size: 12px; letter-spacing: 3px; color: #8b6fa8; margin-bottom: 14px; }
+.story-section h2 { font-family: 'Pixelify Sans', monospace; font-weight: 700; font-size: clamp(30px, 7vw, 56px); color: #f0e6d2; text-shadow: 3px 3px 0 #2d1b3d, 6px 6px 0 rgba(0,0,0,0.35); margin-bottom: 22px; }
+.story-section .section-divider { width: 90px; height: 3px; margin: 0 auto 26px; background: linear-gradient(90deg, transparent, #d4af37, transparent); }
+.story-section .section-body { font-family: 'VT323', monospace; font-size: clamp(16px, 2.4vw, 22px); color: #d8c9e8; max-width: 560px; line-height: 1.5; }
+
+/* ============ MOMENTS: 5 DECK ALA CLASH ROYALE ============ */
+#moments.story-section { min-height: auto; padding-top: 80px; padding-bottom: 80px; }
+
+.deck-tabs {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.deck-tab {
+  font-family: 'Pixelify Sans', monospace; font-weight: 700; font-size: 18px;
+  width: 46px; height: 46px; border-radius: 10px;
+  background: linear-gradient(160deg, #241537, #1c1130);
+  border: 2px solid #4a3a5c; color: #d8c9e8;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.25s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+.deck-tab:hover { border-color: #d4af37; color: #f0e6d2; }
+.deck-tab.active {
+  background: linear-gradient(160deg, #d4af37, #b9912a);
+  color: #1c1130; border-color: #f0e6d2;
+  box-shadow: 0 0 14px rgba(212,175,55,0.55);
+}
+
+.deck-title {
+  font-family: 'Pixelify Sans', monospace; font-weight: 700; font-size: 18px;
+  color: #d4af37; letter-spacing: 1px; margin-bottom: 26px;
+  text-shadow: 1px 1px 0 #0d0a14;
+}
+
+.deck-panel { display: none; }
+.deck-panel.active { display: block; }
+
+/* Grid kartu foto Moments: 3 kolom per baris (3 foto baris 1, 3 foto baris 2).
+   max-width diperlebar supaya foto tidak terlalu kecil di layar besar,
+   dan gap dijaga tetap ada agar antar foto ada jarak/spasi. */
+.moments-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px 16px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+.moment-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: 'Pixelify Sans', monospace;
+  transition: transform 0.2s ease;
+}
+.moment-card:active { transform: scale(0.95); }
+
+.moment-front {
+  position: absolute; inset: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #3a2147, #1c1130 60%);
+  border: 3px solid #2d1b3d;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.55), 0 0 0 2px #d4af37 inset, 0 0 12px rgba(212,175,55,0.2);
+  display: flex; flex-direction: column;
+}
+.moment-photo {
+  flex: 1; width: 100%;
+  background-size: cover; background-position: center;
+  background-color: #241537;
+  border-bottom: 2px solid #d4af37;
+  position: relative;
+}
+.moment-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(10,6,18,0.85) 100%);
+}
+.moment-gem {
+  position: absolute; top: 5px; left: 5px; z-index: 3;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ff9fd0, #b0399c 70%);
+  border: 2px solid #f0e6d2;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; color: #fff; font-weight: 700;
+  box-shadow: 0 0 5px rgba(255,140,210,0.7);
+}
+.moment-ribbon {
+  padding: 4px 4px 5px;
+  text-align: center;
+  background: linear-gradient(180deg, #2d1b3d, #1b1029);
+  font-size: 10px; letter-spacing: 0.5px; color: #f0e6d2;
+  text-shadow: 1px 1px 0 #0d0a14;
+  border-top: 1px solid rgba(212,175,55,0.4);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.moment-ribbon .moment-date {
+  display: block; margin-top: 1px; font-family: 'VT323', monospace;
+  font-size: 9px; color: #c9b8e0; letter-spacing: 0.3px;
+}
+.moment-hint {
+  position: absolute; bottom: 3px; right: 4px; z-index: 3;
+  font-family: 'VT323', monospace; font-size: 8px; color: #f0e6d2cc;
+  background: rgba(13,10,20,0.55); padding: 1px 4px; border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+/* ============ MODAL DETAIL KARTU (ALA CLASH ROYALE CARD INFO) ============ */
+#moment-info-overlay {
+  position: fixed; inset: 0; z-index: 9500;
+  background: rgba(4,2,7,0.78); backdrop-filter: blur(3px);
+  display: none; align-items: center; justify-content: center; padding: 24px;
+}
+#moment-info-overlay.show { display: flex; }
+.moment-info-card {
+  width: 100%; max-width: 360px;
+  background: linear-gradient(165deg, #241a3a, #15101f 75%);
+  border: 3px solid #d4af37;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.6), 0 0 24px rgba(212,175,55,0.25);
+  padding: 22px 20px 26px;
+  position: relative;
+  font-family: 'Pixelify Sans', monospace;
+  text-align: center;
+}
+.moment-info-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 30px; height: 30px; border-radius: 8px;
+  background: #8b1a3a; border: 2px solid #f0e6d2;
+  color: #f0e6d2; font-size: 16px; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+.moment-info-photo {
+  width: 100%; aspect-ratio: 4/3; border-radius: 12px;
+  background-size: cover; background-position: center;
+  background-color: #2d1b3d;
+  border: 3px solid #d4af37;
+  box-shadow: 0 0 14px rgba(212,175,55,0.3);
+  margin-bottom: 18px;
+}
+.moment-info-title {
+  font-size: 22px; color: #f0e6d2; letter-spacing: 1px;
+  text-shadow: 2px 2px 0 #0d0a14; margin-bottom: 6px;
+}
+.moment-info-date {
+  font-family: 'VT323', monospace; font-size: 16px; color: #d4af37;
+  letter-spacing: 1px; margin-bottom: 16px;
+}
+.moment-info-text {
+  font-family: 'VT323', monospace; font-size: 18px; color: #d8c9e8;
+  line-height: 1.5; background: rgba(13,10,20,0.4);
+  border-radius: 10px; padding: 14px 16px;
+}
+
+/* ============ BOTTOM ZONE: PEDESAAN ============ */
+#bottom-zone { position: relative; width: 100%; min-height: 58vh; display: flex; flex-direction: column; justify-content: flex-end; z-index: 4; overflow: hidden; }
+.village-sky-fade { position: absolute; top: -160px; left: 0; width: 100%; height: 160px; background: linear-gradient(180deg, transparent, rgba(20,13,10,0.95)); z-index: 1; }
+#bottom-decor { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.bird { position: absolute; opacity: 0.7; }
+.bird svg { width: 100%; height: 100%; }
+.firefly { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #ffe9a8; box-shadow: 0 0 6px 2px rgba(255,210,120,0.7); animation: fireflyGlow 3s ease-in-out infinite; }
+@keyframes fireflyGlow { 0%, 100% { opacity: 0.15; transform: translateY(0); } 50% { opacity: 0.9; transform: translateY(-8px); } }
+.village-cloud { position: absolute; opacity: 0.16; filter: blur(1px); }
+.village-cloud svg { width: 100%; height: 100%; }
+.village-cloud path { fill: #e3d4c2; }
+.mountains { width: 100%; height: 90px; position: relative; z-index: 3; }
+.mountains svg { width: 100%; height: 100%; display: block; }
+
+/* Pohon kelapa: overlay di atas desa, beberapa di belakang & di depan untuk kedalaman */
+#palm-trees { position: absolute; left: 0; bottom: 40px; width: 100%; height: 0; z-index: 5; pointer-events: none; }
+.palm { position: absolute; bottom: 0; transform-origin: bottom center; animation: palmSway 5s ease-in-out infinite; }
+.palm svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.palm.behind { z-index: 4; }
+.palm.front { z-index: 6; }
+@keyframes palmSway { 0%, 100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+
+/* Desa: rumah-rumah dengan pencahayaan jendela */
+.village-scene { width: 100%; position: relative; z-index: 5; }
+.village-scene svg { width: 100%; height: 100%; display: block; }
+.window-lit { animation: windowFlicker 4.5s ease-in-out infinite; }
+@keyframes windowFlicker { 0%, 100% { opacity: 0.85; } 48% { opacity: 0.85; } 50% { opacity: 0.55; } 52% { opacity: 0.85; } 75% { opacity: 0.95; } }
+.ground-strip { width: 100%; height: 40px; background: #0e0906; position: relative; z-index: 6; }
+
+.copyright-section { position: relative; z-index: 6; background: #0e0906; padding: 26px 16px; text-align: center; font-family: 'Pixelify Sans', monospace; font-size: 11px; color: #6b5a4a; letter-spacing: 1px; }
+#copyright-text { color: #6b5a4a; }
+
+/* ============ WIDGETS ============ */
+#floating-widgets { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 100; }
+#wa-btn, #music-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(11, 7, 22, 0.75); border: 2px solid #4a3a5c; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; backdrop-filter: blur(5px); outline: none; text-decoration: none; }
+#wa-btn:hover { border-color: #25D366; box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); transform: translateY(-3px); }
+#music-btn:hover { border-color: #d4af37; box-shadow: 0 0 15px rgba(212, 175, 55, 0.4); transform: translateY(-3px); }
+
+/* ============ MODAL LOGIN ============ */
+#auth-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(19, 11, 36, 0.55); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(3px); transition: opacity 0.8s ease; }
+.auth-box { width: 85vw; max-width: 380px; height: auto; background: rgba(255, 255, 255, 0.55); border: 2px solid rgba(255, 255, 255, 0.8); border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 15px 40px rgba(0,0,0,0.6); padding: 35px 20px; text-align: center; }
+.auth-box h2 { font-family: 'Pixelify Sans', monospace; font-size: clamp(24px, 6vw, 32px); color: #130b24; margin-bottom: 25px; line-height: 1.2; text-shadow: 1px 1px 0 rgba(255,255,255,0.8); }
+.input-wrapper { position: relative; width: 100%; margin-bottom: 15px; }
+.auth-box input { font-family: 'VT323', monospace; font-size: 22px; padding: 12px 45px 12px 20px; width: 100%; border: 2px solid #4a3a5c; background: rgba(255, 255, 255, 0.9); border-radius: 8px; outline: none; text-align: center; color: #130b24; transition: border-color 0.3s; }
+.auth-box input:focus { border-color: #d4af37; }
+.toggle-password { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #4a3a5c; display: flex; align-items: center; justify-content: center; }
+.auth-box button { font-family: 'Pixelify Sans', monospace; font-weight: 700; font-size: 18px; padding: 12px 40px; margin-top: 10px; background: #130b24; color: #f0e6d2; border: 2px solid #4a3a5c; border-radius: 8px; cursor: pointer; transition: all 0.3s; }
+.auth-box button:hover { background: #d4af37; color: #130b24; border-color: #f0e6d2; transform: translateY(-2px); }
+#auth-error { font-family: 'VT323', monospace; color: #8b1a3a; font-weight: bold; font-size: 18px; margin-top: 15px; min-height: 20px; }
+
+/* ============ GIFT: PETI HADIAH ============ */
+#chest-overlay {
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.58); z-index: 9000;
+  display: none; backdrop-filter: blur(2px); transition: background 0.4s ease;
+}
+#chest-overlay.active { display: block; }
+
+.chest-stage {
+  position: relative; z-index: 9001;
+  display: flex; flex-direction: column; align-items: center;
+  cursor: pointer; user-select: none; margin-top: 10px;
+}
+
+#item-counter {
+  font-family: 'Pixelify Sans', monospace; font-size: clamp(30px, 7vw, 44px);
+  color: #f0e6d2; text-shadow: 2px 2px 0 #2d1b3d, 0 0 16px rgba(212,175,55,0.85);
+  margin-bottom: 16px; display: none;
+}
+
+.chest-visual-wrap {
+  position: relative;
+  width: clamp(220px, 58vw, 320px);
+  height: clamp(260px, 42vh, 380px);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.chest-visual {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 22px rgba(0,0,0,0.55));
+  transition: transform 0.15s ease;
+}
+
+.chest-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 3px solid #d4af37;
+  box-shadow: 0 0 0 6px rgba(4,2,7,0.4), 0 20px 40px rgba(0,0,0,0.7), 0 0 30px rgba(212,175,55,0.35);
+  display: none;
+  background: #000;
+}
+
+.chest-hint {
+  font-family: 'Pixelify Sans', monospace; font-size: 13px; letter-spacing: 1.5px;
+  color: #8b6fa8; margin-top: 18px; animation: hintPulse 1.8s ease-in-out infinite;
+}
+@keyframes hintPulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+.chest-stage.bump .chest-visual { transform: scale(0.92); }
+
+.floating-item {
+  position: fixed; z-index: 9200; font-size: 34px;
+  pointer-events: none; animation: floatUp 1s ease-out forwards;
+}
+@keyframes floatUp {
+  0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
+  15%  { opacity: 1; }
+  100% { transform: translate(-50%, -220%) scale(1.15); opacity: 0; }
+}
+
+#gift-popup {
+  position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
+  background: linear-gradient(160deg, #241537, #1c1130); border: 3px solid #d4af37;
+  border-radius: 16px; padding: 30px; z-index: 9999; text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px rgba(212,175,55,0.3);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex; flex-direction: column; align-items: center;
+  width: 90%; max-width: 400px;
+}
+#gift-popup.show { transform: translate(-50%, -50%) scale(1); }
+#gift-popup h3 { font-family: 'Pixelify Sans', monospace; font-size: 22px; color: #f0e6d2; margin-bottom: 20px; }
+
+.gift-lineup { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 22px; }
+.gift-item-box {
+  width: 56px; height: 56px; background: #3a2147; border: 2px solid #d4af37; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 0 10px rgba(212,175,55,0.25) inset;
+  animation: popIn 0.4s ease both;
+}
+@keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+
+.popup-actions { display: flex; gap: 12px; }
+.close-popup-btn, .replay-btn {
+  font-family: 'Pixelify Sans', monospace; border: none; padding: 10px 22px; border-radius: 8px;
+  font-size: 16px; cursor: pointer; font-weight: 700; transition: background 0.3s, transform 0.2s;
+}
+.close-popup-btn { background: #d4af37; color: #1c1130; }
+.close-popup-btn:hover { background: #f0e6d2; }
+.replay-btn { background: transparent; color: #d8c9e8; border: 2px solid #4a3a5c; }
+.replay-btn:hover { border-color: #d4af37; color: #f0e6d2; }
