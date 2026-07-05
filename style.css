@@ -147,8 +147,10 @@ nav.show { opacity: 1; }
   text-shadow: 1px 1px 0 #0d0a14;
 }
 
-.deck-panel { display: none; }
+.deck-panel { display: none; width: 100%; }
 .deck-panel.active { display: block; }
+
+#deck-panels { width: 100%; }
 
 /* Grid kartu foto Moments: 3 kolom per baris (3 foto baris 1, 3 foto baris 2).
    max-width diperlebar supaya foto tidak terlalu kecil di layar besar,
