@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akademi Bulan Sabit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Pixelify+Sans:wght@400..700&family=VT323&display=swap" rel="stylesheet">
+<!-- Semua styling dipisah ke file style.css -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ======================================================================
+     STRUKTUR HTML (kerangka/konten website)
+     - #auth-overlay      : modal login (nama + PIN) yang muncul pertama kali
+     - #main-wrapper       : seluruh konten utama (background langit -> desa)
+       - #hero              : layar pertama (judul, nama, pesan ucapan)
+       - #words             : section untuk pesan/kata-kata panjang
+       - #moments           : section galeri foto kenangan (5 deck kartu)
+       - #gift              : section peti hadiah interaktif
+       - #bottom-zone       : dekorasi desa di bagian paling bawah halaman
+     - #floating-widgets   : tombol musik & WhatsApp yang selalu terlihat
+     ====================================================================== -->
+
+<!-- MODAL LOGIN -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <h2>Apakah ini sayangkuu???</h2>
+    <div class="input-wrapper">
+      <input type="text" id="input-name" placeholder="Namaa" autocomplete="off">
+    </div>
+    <div class="input-wrapper">
+      <input type="password" id="input-pin" placeholder="PIN-nyaa" autocomplete="off">
+      <span class="toggle-password" onclick="togglePassword()">
+        <svg id="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+      </span>
+    </div>
+    <button onclick="verifyLogin()">MASUK</button>
+    <div id="auth-error"></div>
+  </div>
+</div>
+
+<!-- KONTEN UTAMA WEBSITE -->
+<div id="main-wrapper">
+  <div id="stars"></div>
+  <div id="fireworks-layer"></div>
+
+  <!-- KONSTELASI, AWAN, PESAWAT (akan disebar lewat JS di sepanjang langit) -->
+  <div id="sky-decor"></div>
+
+  <section id="hero">
+    <nav id="main-nav">
+      <ul class="nav-list">
+        <li><a href="#words">Words</a></li>
+        <li><a href="#moments">Moments</a></li>
+        <li><a href="#gift">Gift</a></li>
+      </ul>
+    </nav>
+
+    <div class="main-moon">
+      <svg width="70" height="70" viewBox="0 0 16 16" shape-rendering="crispEdges">
+        <path fill="#fffaf0" d="M6 1h3v1H6V1zM4 2h2v1H4V2zM3 3h1v1H3V3zM2 4h1v2H2V4zM1 6h1v4H1V6zM2 10h1v2H2v-2zM3 12h1v1H3v-1zM4 13h2v1H4v-1zM6 14h3v1H6v-1zM9 14h1v-1H9zM10 13h1v-1h-1zM11 12h1v-1h-1zM7 13h1v-1H7zM6 12h1v-1H6zM5 11h1v-1H5zM4 9h1V7H4zM5 6h1V5H5zM6 4h1V3H6zM7 3h1V2H7z"/>
+      </svg>
+    </div>
+
+    <div id="hero-content">
+      <div class="eyebrow-label">Made With Love</div>
+      <h1 class="hero-title" id="tw-title"></h1>
+      <div id="personalName"></div>
+      <div id="personalMessage">Semoga harimu secerah kembang api ini, dan sehangat semua doa yang menyertainya.</div>
+      <div class="hero-divider" id="hero-div"></div>
+    </div>
+
+    <div class="scroll-hint" id="scroll-hint" style="cursor: pointer; pointer-events: auto;">
+      <span>SCROLL</span>
+      <span class="arrow">▼</span>
+    </div>
+  </section>
+
+  <!-- ============ SECTION: WORDS ============ -->
+  <section id="words" class="story-section">
+    <div class="section-label">✦ UNTUK KAMU ✦</div>
+    <h2>Words</h2>
+    <div class="section-divider"></div>
+    <p class="section-body">
+      Tuliskan di sini kata-kata, doa, atau pesan panjang yang ingin kamu sampaikan untuknya.
+      Bagian ini bisa kamu isi dengan cerita, harapan, atau kalimat-kalimat manis yang ingin selalu ia ingat.
+    </p>
+  </section>
+
+  <!-- ============ SECTION: MOMENTS (5 DECK) ============ -->
+  <section id="moments" class="story-section">
+    <div class="section-label">✦ KENANGAN KITA ✦</div>
+    <h2>Moments</h2>
+    <div class="section-divider"></div>
+    <p class="section-body" style="margin-bottom: 30px;">
+      Setiap deck menyimpan kumpulan momen berharga kita. Pilih deck, lalu tap kartunya untuk membaca ceritanya.
+    </p>
+
+    <div class="deck-tabs" id="deck-tabs"></div>
+    <div class="deck-title" id="deck-title"></div>
+    <div id="deck-panels"></div>
+  </section>
+
+  <!-- ============ MODAL INFO MOMENT (ALA POPUP KARTU CLASH ROYALE) ============ -->
+  <div id="moment-info-overlay">
+    <div class="moment-info-card">
+      <div class="moment-info-close" id="moment-info-close">✕</div>
+      <div class="moment-info-photo" id="moment-info-photo"></div>
+      <div class="moment-info-title" id="moment-info-title"></div>
+      <div class="moment-info-date" id="moment-info-date"></div>
+      <div class="moment-info-text" id="moment-info-text"></div>
+    </div>
+  </div>
+
+  <!-- ============ SECTION: GIFT ============ -->
+  <section id="gift" class="story-section">
+    <div class="section-label">✦ SEBUAH HADIAH ✦</div>
+    <h2>Gift</h2>
+    <div class="section-divider"></div>
+    <p class="section-body" style="margin-bottom: 8px;">
+      Ketuk peti di bawah ini untuk membukanya, satu per satu.
+    </p>
+
+    <div id="chest-overlay"></div>
+
+    <div class="chest-stage" id="chest-stage">
+      <div id="item-counter">5</div>
+      <div class="chest-visual-wrap">
+        <img src="assets/peti-tertutup.png" alt="Peti Tertutup" id="chest-img" class="chest-visual">
+        <video id="chest-video" class="chest-video" src="assets/peti-membuka.mp4" muted playsinline preload="metadata"></video>
+      </div>
+      <div class="chest-hint" id="chest-hint">Ketuk peti untuk membuka</div>
+    </div>
+  </section>
+
+  <div id="bottom-zone">
+    <div class="village-sky-fade"></div>
+    <div id="bottom-decor"></div>
+    <div class="mountains">
+      <svg viewBox="0 0 1200 90" preserveAspectRatio="none">
+        <polygon points="0,90 0,55 120,15 240,60 360,25 480,65 620,10 760,55 880,30 1000,60 1100,35 1200,55 1200,90" fill="#241a16"/>
+        <polygon points="0,90 0,70 150,40 300,75 470,45 650,72 820,42 1000,78 1200,50 1200,90" fill="#1c1410"/>
+      </svg>
+    </div>
+
+    <!-- Pohon kelapa: campuran lapisan belakang & depan, overlay di atas desa -->
+    <div id="palm-trees"></div>
+
+    <!-- Desa: rumah-rumah dengan jendela menyala -->
+    <div class="village-scene">
+      <svg viewBox="0 0 1200 170" preserveAspectRatio="none">
+        <!-- siluet rumah jauh -->
+        <g fill="#1c130d" opacity="0.85">
+          <polygon points="40,170 40,110 90,80 140,110 140,170"/>
+          <polygon points="300,170 300,100 360,65 420,100 420,170"/>
+          <polygon points="620,170 620,105 670,75 720,105 720,170"/>
+          <polygon points="900,170 900,95 965,60 1030,95 1030,170"/>
+        </g>
+        <!-- rumah utama dengan jendela menyala -->
+        <g>
+          <!-- rumah 1 -->
+          <polygon points="70,170 70,95 140,55 210,95 210,170" fill="#2a1c12"/>
+          <rect x="95" y="115" width="22" height="28" rx="2" class="window-lit" fill="#ffcf7a"/>
+          <rect x="165" y="115" width="22" height="28" rx="2" class="window-lit" fill="#ffb15c" style="animation-delay:1.2s"/>
+          <rect x="130" y="140" width="20" height="30" fill="#140d09"/>
+
+          <!-- rumah 2 -->
+          <polygon points="260,170 260,100 330,62 400,100 400,170" fill="#241a10"/>
+          <rect x="285" y="118" width="24" height="30" rx="2" class="window-lit" fill="#ffd98a" style="animation-delay:0.6s"/>
+          <rect x="355" y="118" width="24" height="30" rx="2" class="window-lit" fill="#ffb15c" style="animation-delay:2.1s"/>
+          <rect x="318" y="142" width="22" height="28" fill="#140d09"/>
+
+          <!-- rumah 3 (lebih besar, tengah) -->
+          <polygon points="470,170 470,85 560,38 650,85 650,170" fill="#2a1c12"/>
+          <rect x="495" y="108" width="26" height="32" rx="2" class="window-lit" fill="#ffe3a3" style="animation-delay:1.6s"/>
+          <rect x="535" y="108" width="26" height="32" rx="2" class="window-lit" fill="#ffcf7a" style="animation-delay:0.3s"/>
+          <rect x="585" y="108" width="26" height="32" rx="2" class="window-lit" fill="#ffb15c" style="animation-delay:2.6s"/>
+          <rect x="540" y="145" width="24" height="25" fill="#140d09"/>
+
+          <!-- rumah 4 -->
+          <polygon points="700,170 700,100 770,62 840,100 840,170" fill="#241a10"/>
+          <rect x="725" y="118" width="24" height="30" rx="2" class="window-lit" fill="#ffd98a" style="animation-delay:1.9s"/>
+          <rect x="795" y="118" width="24" height="30" rx="2" class="window-lit" fill="#ffb15c" style="animation-delay:0.9s"/>
+          <rect x="758" y="142" width="22" height="28" fill="#140d09"/>
+
+          <!-- rumah 5 -->
+          <polygon points="900,170 900,95 970,57 1040,95 1040,170" fill="#2a1c12"/>
+          <rect x="925" y="115" width="24" height="30" rx="2" class="window-lit" fill="#ffcf7a" style="animation-delay:2.3s"/>
+          <rect x="990" y="115" width="24" height="30" rx="2" class="window-lit" fill="#ffe3a3" style="animation-delay:0.4s"/>
+          <rect x="958" y="142" width="22" height="28" fill="#140d09"/>
+
+          <!-- rumah 6 -->
+          <polygon points="1080,170 1080,108 1140,72 1200,108 1200,170" fill="#241a10"/>
+          <rect x="1100" y="122" width="22" height="28" rx="2" class="window-lit" fill="#ffb15c" style="animation-delay:1.1s"/>
+          <rect x="1155" y="122" width="22" height="28" rx="2" class="window-lit" fill="#ffd98a" style="animation-delay:2.8s"/>
+        </g>
+        <!-- jalan setapak samar -->
+        <polygon points="0,170 1200,170 1200,162 0,160" fill="#0e0906"/>
+      </svg>
+    </div>
+
+    <div class="ground-strip"></div>
+    <footer class="copyright-section">&copy; <span id="copyright-year">2026</span> <span id="copyright-text">AKADEMI BULAN SABIT. ALL RIGHTS RESERVED.</span></footer>
+  </div>
+</div>
+
+<div id="click-fireworks-layer"></div>
+
+<div id="gift-popup">
+  <h3>Semua Hadiah Terkumpul!</h3>
+  <div class="gift-lineup" id="gift-lineup"></div>
+  <div class="popup-actions">
+    <button class="close-popup-btn" onclick="closeGiftPopup()">Tutup</button>
+    <button class="replay-btn" onclick="resetChest()">🔄 Buka Lagi</button>
+  </div>
+</div>
+
+<div id="floating-widgets">
+  <button id="music-btn" title="Mainkan/Jeda Lagu">
+    <svg id="icon-play" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+    <svg id="icon-pause" style="display: none;" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+  </button>
+
+  <!-- Ingat untuk mengganti nomor WA ini -->
+  <a id="wa-btn" href="https://wa.me/6281234567890" target="_blank" title="Hubungi via WhatsApp">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#25D366" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+  </a>
+</div>
+
+<!-- Ingat untuk mengganti lokasi file audio ini -->
+<audio id="bg-music" loop><source src="masukkan-lagumu-disini.mp3" type="audio/mpeg"></audio>
+
+<!-- Semua logika interaktif dipisah ke file script.js. Diletakkan di akhir body
+     supaya seluruh elemen HTML di atas sudah ada di halaman sebelum script berjalan. -->
+<script src="script.js"></script>
+</body>
+</html>
