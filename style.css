@@ -366,6 +366,13 @@ nav.show { opacity: 1; }
   display: none;
   background: #000;
 }
+.chest-video-source {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+}
 
 .chest-hint {
   font-family: 'Pixelify Sans', monospace; font-size: 13px; letter-spacing: 1.5px;
