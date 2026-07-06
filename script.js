@@ -247,16 +247,17 @@ function startMainTypewriter() {
   document.getElementById('hero-content').classList.add('show');
   typeWriter('tw-title', "SELAMAT ULANG\nTAHUN,", 110, () => {
     setTimeout(() => {
-      typeWriter('personalName', "Sayang", 130, () => {
+      typeWriter('personalName', "Nayraa", 130, () => {
         const msg = document.getElementById('personalMessage');
         const div = document.getElementById('hero-div');
         msg.style.opacity = '1'; msg.style.transform = 'translateY(0)';
         div.style.opacity = '1'; div.style.transform = 'translateY(0)';
-
+//Tempat Ganti nama 
         document.getElementById('scroll-hint').style.opacity = '1';
 
         setTimeout(() => {
-           document.body.style.overflow = "auto";
+           document.body.style.overflowY = "auto";
+           document.body.style.overflowX = "hidden";
         }, 1000);
 
       });
@@ -846,16 +847,18 @@ function drawChromaFrame() {
 
   const frame = chestCtx.getImageData(0, 0, chestCanvas.width, chestCanvas.height);
   const data = frame.data;
-  const threshold = 235; // makin kecil = makin ketat mendeteksi "putih"
+  const threshold = 190; // mulai transparan dari sini
+  const feather = 55;    // lebar transisi halus, makin besar makin lembut
   for (let i = 0; i < data.length; i += 4) {
-    if (data[i] > threshold && data[i + 1] > threshold && data[i + 2] > threshold) {
-      data[i + 3] = 0; // buat transparan
+    const minC = Math.min(data[i], data[i + 1], data[i + 2]);
+    if (minC > threshold) {
+      const t = Math.min(1, (minC - threshold) / feather);
+      data[i + 3] = Math.round((1 - t) * 255);
     }
   }
   chestCtx.putImageData(frame, 0, 0);
   chromaFrameId = requestAnimationFrame(drawChromaFrame);
 }
-
 chestVideo.addEventListener('play', () => {
   chestCanvas.style.display = 'block';
   drawChromaFrame();
