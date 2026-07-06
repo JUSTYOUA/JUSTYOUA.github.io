@@ -834,6 +834,34 @@ const collectedIcons = [];
 const chestStage = document.getElementById('chest-stage');
 const chestImg = document.getElementById('chest-img');
 const chestVideo = document.getElementById('chest-video');
+const chestVideo = document.getElementById('chest-video');
+const chestCanvas = document.getElementById('chest-canvas');
+const chestCtx = chestCanvas.getContext('2d');
+let chromaFrameId = null;
+
+function drawChromaFrame() {
+  if (chestVideo.paused || chestVideo.ended) return;
+  chestCanvas.width = chestVideo.videoWidth;
+  chestCanvas.height = chestVideo.videoHeight;
+  chestCtx.drawImage(chestVideo, 0, 0, chestCanvas.width, chestCanvas.height);
+
+  const frame = chestCtx.getImageData(0, 0, chestCanvas.width, chestCanvas.height);
+  const data = frame.data;
+  const threshold = 235; // makin kecil = makin ketat mendeteksi "putih"
+  for (let i = 0; i < data.length; i += 4) {
+    if (data[i] > threshold && data[i + 1] > threshold && data[i + 2] > threshold) {
+      data[i + 3] = 0; // buat transparan
+    }
+  }
+  chestCtx.putImageData(frame, 0, 0);
+  chromaFrameId = requestAnimationFrame(drawChromaFrame);
+}
+
+chestVideo.addEventListener('play', () => {
+  chestCanvas.style.display = 'block';
+  drawChromaFrame();
+});
+chestVideo.addEventListener('pause', () => cancelAnimationFrame(chromaFrameId));
 const itemCounter = document.getElementById('item-counter');
 const chestHint = document.getElementById('chest-hint');
 const chestOverlay = document.getElementById('chest-overlay');
@@ -854,7 +882,7 @@ function openChest() {
   chestOverlay.classList.add('active');
 
   chestImg.style.display = 'none';
-  chestVideo.style.display = 'block';
+  chestCanvas.style.display = 'block';
   chestVideo.currentTime = 0;
   chestVideo.play().catch(() => {
     finishOpening();
@@ -865,7 +893,7 @@ chestVideo.addEventListener('ended', finishOpening);
 
 function finishOpening() {
   chestState = 'opened';
-  chestVideo.style.display = 'none';
+  chestCanvas.style.display = 'none';
   chestImg.src = ASSET_OPEN;
   chestImg.style.display = 'block';
   itemCounter.style.display = 'block';
