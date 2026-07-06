@@ -834,7 +834,6 @@ const collectedIcons = [];
 const chestStage = document.getElementById('chest-stage');
 const chestImg = document.getElementById('chest-img');
 const chestVideo = document.getElementById('chest-video');
-const chestVideo = document.getElementById('chest-video');
 const chestCanvas = document.getElementById('chest-canvas');
 const chestCtx = chestCanvas.getContext('2d');
 let chromaFrameId = null;
