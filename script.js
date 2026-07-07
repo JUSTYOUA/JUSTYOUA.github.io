@@ -847,8 +847,8 @@ function drawChromaFrame() {
 
   const frame = chestCtx.getImageData(0, 0, chestCanvas.width, chestCanvas.height);
   const data = frame.data;
-  const threshold = 190; // mulai transparan dari sini
-  const feather = 55;    // lebar transisi halus, makin besar makin lembut
+  const threshold = 140; // mulai transparan dari sini
+  const feather = 100;    // lebar transisi halus, makin besar makin lembut
   for (let i = 0; i < data.length; i += 4) {
     const minC = Math.min(data[i], data[i + 1], data[i + 2]);
     if (minC > threshold) {
