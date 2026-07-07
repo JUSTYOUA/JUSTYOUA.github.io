@@ -824,7 +824,7 @@ document.getElementById('music-btn').addEventListener('click', () => {
 
 /* ============ GIFT: LOGIKA PETI HADIAH ============ */
 const TOTAL_ITEMS = 5;
-const GIFT_ICONS = ['💎', '❤️', '💰', '🧿', '✨'];
+const GIFT_ICONS = ['assets/gift1.png', 'assets/gift2.png', 'assets/gift3.png', 'assets/gift4.png', 'assets/gift5.png'];
 const ASSET_CLOSED = 'assets/peti-tertutup.png';
 const ASSET_OPEN = 'assets/peti-terbuka.png';
 
@@ -875,10 +875,13 @@ chestStage.addEventListener('click', () => {
     openChest();
   } else if (chestState === 'opened' && itemsLeft > 0) {
     collectItem();
+  } else if (chestState === 'opened' && itemsLeft === 0) {
+    showFinalGifts();
   }
 });
 
 function openChest() {
+  chestStage.scrollIntoView({ behavior: 'smooth', block: 'center' });  
   chestState = 'playing';
   chestHint.style.display = 'none';
   chestOverlay.classList.add('active');
@@ -923,12 +926,15 @@ function spawnFloatingItem(icon) {
   const rect = chestImg.getBoundingClientRect();
   const el = document.createElement('div');
   el.className = 'floating-item';
-  el.textContent = icon;
+  if (/\.(png|jpg|jpeg|webp|gif)$/i.test(icon)) {
+    el.innerHTML = `<img src="${icon}" alt="" style="width:100%;height:100%;object-fit:contain;">`;
+  } else {
+    el.textContent = icon;
+  }
   el.style.left = (rect.left + rect.width / 2) + 'px';
   el.style.top = (rect.top + rect.height / 2) + 'px';
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1000);
-}
 
 function showFinalGifts() {
   giftLineup.innerHTML = '';
@@ -936,7 +942,11 @@ function showFinalGifts() {
     const box = document.createElement('div');
     box.className = 'gift-item-box';
     box.style.animationDelay = (i * 0.08) + 's';
-    box.textContent = icon;
+    if (/\.(png|jpg|jpeg|webp|gif)$/i.test(icon)) {
+      box.innerHTML = `<img src="${icon}" alt="" style="width:70%;height:70%;object-fit:contain;">`;
+    } else {
+      box.textContent = icon;
+    }
     giftLineup.appendChild(box);
   });
   giftPopup.classList.add('show');
