@@ -935,6 +935,7 @@ function spawnFloatingItem(icon) {
   el.style.top = (rect.top + rect.height / 2) + 'px';
   document.body.appendChild(el);
   setTimeout(() => el.remove(), 1000);
+}
 
 function showFinalGifts() {
   giftLineup.innerHTML = '';
