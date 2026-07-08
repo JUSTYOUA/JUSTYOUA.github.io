@@ -117,7 +117,7 @@ nav.show { opacity: 1; }
 .story-section h2 { font-family: 'Pixelify Sans', monospace; font-weight: 700; font-size: clamp(30px, 7vw, 56px); color: #f0e6d2; text-shadow: 3px 3px 0 #2d1b3d, 6px 6px 0 rgba(0,0,0,0.35); margin-bottom: 22px; }
 .story-section .section-divider { width: 90px; height: 3px; margin: 0 auto 26px; background: linear-gradient(90deg, transparent, #d4af37, transparent); }
 .story-section .section-body { font-family: 'VT323', monospace; font-size: clamp(16px, 2.4vw, 22px); color: #d8c9e8; max-width: 560px; line-height: 1.5; }
-#words.story-section { min-height: 55vh; padding-top: 20px; padding-bottom: 20px; }
+#words.story-section { min-height: auto; padding-top: 40px; padding-bottom: 20px; }
 /* ============ MOMENTS: 5 DECK ALA CLASH ROYALE ============ */
 #moments.story-section { min-height: auto; padding-top: 80px; padding-bottom: 80px; }
 
