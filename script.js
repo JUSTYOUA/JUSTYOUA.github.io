@@ -834,36 +834,6 @@ const collectedIcons = [];
 
 const chestStage = document.getElementById('chest-stage');
 const chestImg = document.getElementById('chest-img'); 
-const chestVideo = document.getElementById('chest-video');
-const chestCanvas = document.getElementById('chest-canvas');
-const chestCtx = chestCanvas.getContext('2d');
-let chromaFrameId = null;
-
-function drawChromaFrame() {
-  if (chestVideo.paused || chestVideo.ended) return;
-  chestCanvas.width = chestVideo.videoWidth;
-  chestCanvas.height = chestVideo.videoHeight;
-  chestCtx.drawImage(chestVideo, 0, 0, chestCanvas.width, chestCanvas.height);
-
-  const frame = chestCtx.getImageData(0, 0, chestCanvas.width, chestCanvas.height);
-  const data = frame.data;
-  const threshold = 140; // mulai transparan dari sini
-  const feather = 100;    // lebar transisi halus, makin besar makin lembut
-  for (let i = 0; i < data.length; i += 4) {
-    const minC = Math.min(data[i], data[i + 1], data[i + 2]);
-    if (minC > threshold) {
-      const t = Math.min(1, (minC - threshold) / feather);
-      data[i + 3] = Math.round((1 - t) * 255);
-    }
-  }
-  chestCtx.putImageData(frame, 0, 0);
-  chromaFrameId = requestAnimationFrame(drawChromaFrame);
-}
-chestVideo.addEventListener('play', () => {
-  chestCanvas.style.display = 'block';
-  drawChromaFrame();
-});
-chestVideo.addEventListener('pause', () => cancelAnimationFrame(chromaFrameId));
 const itemCounter = document.getElementById('item-counter');
 const chestHint = document.getElementById('chest-hint');
 const chestOverlay = document.getElementById('chest-overlay');
@@ -881,24 +851,17 @@ chestStage.addEventListener('click', () => {
 });
 
 function openChest() {
-  chestStage.scrollIntoView({ behavior: 'smooth', block: 'center' });  
+  chestStage.scrollIntoView({ behavior: 'smooth', block: 'center' });
   chestState = 'playing';
   chestHint.style.display = 'none';
   chestOverlay.classList.add('active');
-
-  chestImg.style.display = 'none';
-  chestCanvas.style.display = 'block';
-  chestVideo.currentTime = 0;
-  chestVideo.play().catch(() => {
-    finishOpening();
-  });
+  finishOpening();
 }
 
 chestVideo.addEventListener('ended', finishOpening);
 
 function finishOpening() {
   chestState = 'opened';
-  chestCanvas.style.display = 'none';
   chestImg.src = ASSET_OPEN;
   chestImg.style.display = 'block';
   itemCounter.style.display = 'block';
@@ -965,7 +928,6 @@ function resetChest() {
   collectedIcons.length = 0;
   chestImg.src = ASSET_CLOSED;
   chestImg.style.display = 'block';
-  chestVideo.style.display = 'none';
   itemCounter.style.display = 'none';
   chestHint.style.display = 'block';
 }
