@@ -157,7 +157,7 @@ nav.show { opacity: 1; }
    dan gap dijaga tetap ada agar antar foto ada jarak/spasi. */
 .moments-grid {
   display: grid;
- grid-template-columns: repeat(3, minmax(110px, 1fr));
+ grid-template-columns: repeat(3, minmax(0px, 1fr));
   gap: 18px 16px;
   width: 100%;
   max-width: 900px;
