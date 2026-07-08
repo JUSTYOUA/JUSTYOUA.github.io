@@ -840,7 +840,7 @@ document.addEventListener('visibilitychange', () => {
 
 /* ============ GIFT: LOGIKA PETI HADIAH ============ */
 const TOTAL_ITEMS = 5;
-const GIFT_ICONS = ['assets/gift1.png', 'assets/gift2.png', 'assets/gift3.png', 'assets/gift4.png', 'assets/gift5.png'];
+const GIFT_ICONS = ['assets/1.png', 'assets/2.png', 'assets/3.png', 'assets/4.png', 'assets/5.png'];
 const ASSET_CLOSED = 'assets/peti-tertutup.png';
 const ASSET_OPEN = 'assets/peti-terbuka.png';
 
