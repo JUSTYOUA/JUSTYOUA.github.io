@@ -874,7 +874,6 @@ function openChest() {
   finishOpening();
 }
 
-chestVideo.addEventListener('ended', finishOpening);
 
 function finishOpening() {
   chestState = 'opened';
