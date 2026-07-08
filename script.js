@@ -110,7 +110,14 @@ function openMomentInfo(m) {
   document.getElementById('moment-info-text').textContent = m.desc;
   overlay.classList.add('show');
 }
-
+document.getElementById('item-preview-close').addEventListener('click', () => {
+  document.getElementById('item-preview-overlay').classList.remove('show');
+});
+document.getElementById('item-preview-overlay').addEventListener('click', (e) => {
+  if (e.target.id === 'item-preview-overlay') {
+    document.getElementById('item-preview-overlay').classList.remove('show');
+  }
+});
 document.getElementById('moment-info-close').addEventListener('click', () => {
   document.getElementById('moment-info-overlay').classList.remove('show');
 });
@@ -822,6 +829,15 @@ document.getElementById('music-btn').addEventListener('click', () => {
   isMusicPlaying = !isMusicPlaying;
 });
 
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    bgMusic.pause();
+    isMusicPlaying = false;
+    iconPlay.style.display = 'block';
+    iconPause.style.display = 'none';
+  }
+});
+
 /* ============ GIFT: LOGIKA PETI HADIAH ============ */
 const TOTAL_ITEMS = 5;
 const GIFT_ICONS = ['assets/gift1.png', 'assets/gift2.png', 'assets/gift3.png', 'assets/gift4.png', 'assets/gift5.png'];
@@ -902,6 +918,7 @@ function spawnFloatingItem(icon) {
 
 function showFinalGifts() {
   giftLineup.innerHTML = '';
+  
   collectedIcons.forEach((icon, i) => {
     const box = document.createElement('div');
     box.className = 'gift-item-box';
@@ -911,6 +928,10 @@ function showFinalGifts() {
     } else {
       box.textContent = icon;
     }
+      box.addEventListener('click', () => {
+      document.getElementById('item-preview-photo').style.backgroundImage = /\.(png|jpg|jpeg|webp|gif)$/i.test(icon) ? `url('${icon}')` : 'none';
+      document.getElementById('item-preview-overlay').classList.add('show');
+    });
     giftLineup.appendChild(box);
   });
   giftPopup.classList.add('show');
