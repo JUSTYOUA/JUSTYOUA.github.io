@@ -383,14 +383,26 @@ nav.show { opacity: 1; }
 .chest-stage.bump .chest-visual { transform: scale(0.92); }
 
 .floating-item {
-  position: fixed; z-index: 9200; font-size: 34px;
-  pointer-events: none; animation: floatUp 1s ease-out forwards;
+  position: fixed; z-index: 9200;
+  pointer-events: none;
+  border-radius: 14px;
+  overflow: visible;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.5)) drop-shadow(0 0 16px rgba(212,175,55,0.45));
+  transform: translate(-50%, -50%) scale(0.1);
+  opacity: 0;
+  animation: floatUpGrow 1.4s cubic-bezier(0.25, 0.7, 0.3, 1) forwards;
 }
-@keyframes floatUp {
-  0%   { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
-  15%  { opacity: 1; }
-  100% { transform: translate(-50%, -220%) scale(1.15); opacity: 0; }
+.floating-item img {
+  width: 100%; height: 100%; object-fit: contain; display: block;
 }
+
+@keyframes floatUpGrow {
+  0%   { transform: translate(-50%, -50%) scale(0.1);  opacity: 0; }
+  10%  { opacity: 1; }
+  45%  { transform: translate(-50%, -55%) scale(1.15); opacity: 1; }
+  100% { transform: translate(-50%, -260%) scale(1.05); opacity: 0; }
+}
+
 
 #gift-popup {
   position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0);
