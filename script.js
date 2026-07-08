@@ -901,18 +901,32 @@ function collectItem() {
 }
 
 function spawnFloatingItem(icon) {
+  const chestWrapRect = document.querySelector('.chest-visual-wrap').getBoundingClientRect();
   const rect = chestImg.getBoundingClientRect();
+
+  // Ukuran dasar item mengikuti ukuran peti (supaya saat membesar hasilnya
+  // proporsional dan "seukuran kotak, lebih besar sedikit")
+  const baseSize = chestWrapRect.width * 0.85;
+
   const el = document.createElement('div');
   el.className = 'floating-item';
+  el.style.width = baseSize + 'px';
+  el.style.height = baseSize + 'px';
+
   if (/\.(png|jpg|jpeg|webp|gif)$/i.test(icon)) {
-    el.innerHTML = `<img src="${icon}" alt="" style="width:100%;height:100%;object-fit:contain;">`;
+    el.innerHTML = `<img src="${icon}" alt="">`;
   } else {
+    el.style.display = 'flex';
+    el.style.alignItems = 'center';
+    el.style.justifyContent = 'center';
+    el.style.fontSize = (baseSize * 0.6) + 'px';
     el.textContent = icon;
   }
+
   el.style.left = (rect.left + rect.width / 2) + 'px';
   el.style.top = (rect.top + rect.height / 2) + 'px';
   document.body.appendChild(el);
-  setTimeout(() => el.remove(), 1000);
+  setTimeout(() => el.remove(), 1400);
 }
 
 function showFinalGifts() {
