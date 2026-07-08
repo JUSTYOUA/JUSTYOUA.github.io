@@ -13,58 +13,58 @@
 /* ============ KONFIGURASI 5 DECK MOMENTS (KARTU FOTO ALA CLASH ROYALE) ============ */
 const DECKS_CONFIG = [
   {
-    name: "Awal Cerita",
+    name: "Random",
     cards: [
-      { img: "assets/peti-tertutup.png", title: "Pertemuan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "assets/peti-tertutup.png", title: "Obrolan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "assets/peti-tertutup.png", title: "Jadian", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "assets/peti-tertutup.png", title: "Foto Bareng Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "assets/peti-tertutup.png", title: "Kencan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "assets/peti-tertutup.png", title: "Pesan Pertama", date: "- 2023 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/IMG-20260622-WA0017.jpg", title: "Nayy Lemes", date: "- 2026 -", desc: "Inii pas nayy lemes bangett gara gara akademikk :(" },
+      { img: "assets/Photo from ~moon (8).jpg", title: "Nayy Pas Car Free dayy", date: "- 2026 -", desc: "Inii pas amam bilang jangan lupaa maem yaa " },
+      { img: "assets/far1.jpg", title: "Nayy pokoknya", date: "- 2026 -", desc: "Inii aku ngga tahu sihh tiba tiba dikirimiin sayangkuu" },
+      { img: "assets/far2.jpg", title: "Nayy Raincoat", date: "- 2025 -", desc: "Yang inii pas keluar ujan ujaan terus dipotoin kakaknyaa" },
+      { img: "assets/rndm9.jpg", title: "Nayy apayaa", date: "- 2025 -", desc: "Inii amamm dikasihh abis amam ngriim pap pake bajuu biru" },
+      { img: "assets/rndm12.jpg", title: "Nayy Pake Motor", date: "- 2026 -", desc: "Ini abiss datang ke graduu amam sebentar bangett langsung kekampus lagii" },
     ]
   },
   {
-    name: "Hari Spesial",
+    name: "Fotoo Barengg",
     cards: [
-      { img: "", title: "Ulang Tahun Pertama", date: "- 2024 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Anniversary", date: "- 2024 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Kejutan Kecil", date: "- 2024 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Hari Wisuda", date: "- 2024 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Hari Spesial Keluarga", date: "- 2024 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Perayaan Kecil", date: "- 2024 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/fotbar1-fx.jpg", title: "Photobox Pertama", date: "- 2026 -", desc: "fotobooth pertama kitaa" },
+      { img: "assets/fotbar11.jpg", title: "Gradu Amam", date: "- 2026 -", desc: "Nayy malamnya balik darii jakarta, kirain ngga datang :(" },
+      { img: "assets/fotbar10-fx.jpg", title: "Car Free day Pertama", date: "- 2026 -", desc: "Pokoknya nayy ngga mau dipotoo" },
+      { img: "assets/fotbar3-fx.jpg", title: "Pertama kali Fotbar", date: "- 2024 -", desc: "Inii abis balik dari OSP dan Fotbar Pertama kitaa" },
+      { img: "assets/fotbar6.jpg", title: "Graduu Nayyy", date: "- 2025 -", desc: "Yeayy Terbebas Dari ICLT" },
+      { img: "assets/fotbar.jpeg", title: "Graduu amam lagi sihh", date: "- 2026 -", desc: "Eeee, ituu ituu dahh" },
     ]
   },
   {
-    name: "Liburan Bersama",
+    name: "ICLT Tercinta",
     cards: [
-      { img: "", title: "Liburan ke Pantai", date: "- 2024 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Trip ke Gunung", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Jalan-Jalan Kota", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Staycation", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Road Trip", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Camping Bareng", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/ma.jpg", title: "Nayy lucuu", date: "- 2024/2025 -", desc: "Ihh pokoknyaa lucuu" },
+      { img: "assets/ma10.jpg", title: "Nayy Mau maemm", date: "- 2024/2025 -", desc: "Cantikk" },
+      { img: "assets/ma2.jpg", title: "PPT", date: "- 2024/2025 -", desc: "Ngga tahuu sih abis acaraa apa inii" },
+      { img: "assets/ma3.jpg", title: "KOPSIISS", date: "- 2024/2025 -", desc: "Inii inget pernahh nayy up sg terus captionnya kangen IC" },
+      { img: "assets/ma6.webp", title: "Cantikk", date: "- 22025 -", desc: "Inii dekett dekeet Yearbook yaa" },
+      { img: "assets/ma7.webp"", title: "YearBook", date: "- 2025 -", desc: "MY ANGELL" },
     ]
   },
   {
-    name: "Momen Lucu",
+    name: "Kampus Nayy",
     cards: [
-      { img: "", title: "Insiden Konyol", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Ekspresi Receh", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Gagal Foto", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Tertawa Bareng", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Drama Kecil", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Candaan Receh", date: "- 2025 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/kampus1.jpg", title: "Nayy Saat Ospek", date: "- 2025 -", desc: "Wkwkwk Inii moment moment panass poll" },
+      { img: "assets/kampus2.jpg", title: "Bukber STAT", date: "- 2025 -", desc: "Nayy jadi mc?, Ngga tahuu pokoknya cantikk" },
+      { img: "assets/kampus12.jpg", title: "Inii pas nginep dii lupaa", date: "- 2026 -", desc: "hehee cantikk my binii" },
+      { img: "assets/kampus13.jpg", title: "Nayy Pas dikelass", date: "- 2025 -", desc: "Akuu jugaa lupa moment yaang inii, cantiik" },
+      { img: "assets/kampus4.jpg", title: "Nayy Masuk HIMA", date: "- 2025 -", desc: "Masihh banyak foto hima yang pakee ini belum di kirim T_T" },
+      { img: "assets/rndm8.jpg", title: "Nayy Pas awall", date: "- 2025 -", desc: "Pokoknyaa cantikk pooll" },
     ]
   },
   {
-    name: "Sekarang & Selamanya",
+    name: "Video Call ",
     cards: [
-      { img: "", title: "Hari Ini", date: "- 2026 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Rencana Masa Depan", date: "- 2026 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Janji Kita", date: "- 2026 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Untuk Selamanya", date: "- ∞ -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Harapan Kita", date: "- 2026 -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
-      { img: "", title: "Selalu Bersama", date: "- ∞ -", desc: "Tuliskan cerita singkat tentang momen ini di sini." },
+      { img: "assets/vc1.jpg", title: "Vidcal Pertamaa", date: "- 2025 -", desc: "Inii pass nayy ajarin Amamm MTK, Lucuu. mauu deh diajarin lagii" },
+      { img: "assets/vc2.jpg", title: "Nayy Boboo", date: "- 2026 -", desc: "lucuu banget bobonyaa" },
+      { img: "assets/vc3.jpg", title: "Inii Part 2", date: "- 2026 -", desc: "Senyumnyaa sukaa" },
+      { img: "assets/vc6.jpg", title: "RuangGuruu", date: "- 2026 -", desc: "Pengeen cubiit" },
+      { img: "assets/vc4.jpg", title: "Temenin nayy belajarr", date: "- 2026 -", desc: "Maapp akuu sibuk sendirii :(" },
+      { img: "assets/vc7.jpg", title: "Cubitt yaa", date: "- 2026-", desc: "Pengenn cubitt dehhh ishh kokk jauhh :(" },
     ]
   },
 ];
