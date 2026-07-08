@@ -43,7 +43,7 @@ const DECKS_CONFIG = [
       { img: "assets/ma3.jpg", title: "KOPSIISS", date: "- 2024/2025 -", desc: "Inii inget pernahh nayy up sg terus captionnya kangen IC" },
       { img: "assets/ma6.webp", title: "Cantikk", date: "- 22025 -", desc: "Inii dekett dekeet Yearbook yaa" },
       { img: "assets/ma7.webp", title: "YearBook", date: "- 2025 -", desc: "MY ANGELL" },
-    ]
+    ] 
   },
   {
     name: "Kampus Nayy",
